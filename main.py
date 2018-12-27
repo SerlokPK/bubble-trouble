@@ -1,19 +1,29 @@
 import pygame
 
+from bubble import Bubble
 
-class Program():
+
+class Program:
     def __init__(self):
-        background_colour = (255, 255, 255)
-        (width, height) = (900, 700)
-        screen = pygame.display.set_mode((width, height))
+        self.background_colour = (255, 255, 255)
+        (self.width,self.height) = (900, 700)
+        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.bubble = Bubble((150, 50), 15, self.screen)
+
+        self.initializeWindow()
+
+
+    def initializeWindow(self):
         pygame.display.set_caption('Bubble trouble')
-        screen.fill(background_colour)
+        self.screen.fill(self.background_colour)
+        self.bubble.display()
         pygame.display.flip()
-        running = True
-        while running:
+
+        self.running = True
+        while self.running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    self.running = False
 
 
 if __name__ == '__main__':
