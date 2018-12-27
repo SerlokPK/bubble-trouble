@@ -1,14 +1,17 @@
-import pygame
+import pygame,math
 
 
 class Bubble:
-    def __init__(self, position, size,screen):
+    def __init__(self, position,screen):
         self.x, self.y = position
-        self.size = size
-        self.colour = (0, 0, 255)
-        self.thickness = 1
         self.screen = screen
+        self.speed = 0
+        self.angle = 0
 
     def display(self):
         img = pygame.image.load('rball6.bmp')
-        self.screen.blit(img,(400,40))
+        self.screen.blit(img,(self.x,self.y))
+
+    def move(self):
+        self.x += math.sin(self.angle) * self.speed
+        self.y -= math.cos(self.angle) * self.speed
