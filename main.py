@@ -4,7 +4,7 @@ import pygame
 class Program():
     def __init__(self):
         background_colour = (255, 255, 255)
-        (width, height) = (300, 200)
+        (width, height) = (900, 700)
         screen = pygame.display.set_mode((width, height))
         pygame.display.set_caption('Bubble trouble')
         screen.fill(background_colour)
