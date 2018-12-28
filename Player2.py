@@ -1,6 +1,6 @@
 import pygame
 
-class Player1(pygame.sprite.Sprite):
+class Player2(pygame.sprite.Sprite):
     def __init__(self, xPosition, yPosition, image):
         self.xPosition = xPosition
         self.yPosition = yPosition
@@ -12,13 +12,13 @@ class Player1(pygame.sprite.Sprite):
         self.velocity = 10
 
 
-def UpdatePlayer1(self):
+def UpdatePlayer2(self):
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT] and self.xPosition > self.velocity:
+    if keys[pygame.K_a] and self.xPosition > self.velocity:
         self.xPosition -= self.velocity
         self.walkingLeft = True
         self.walkingRight = False
-    if keys[pygame.K_RIGHT] and self.xPosition < 900 - self.playerWidth - self.velocity:
+    if keys[pygame.K_d] and self.xPosition < 900 - self.playerWidth - self.velocity:
         self.xPosition += self.velocity
         self.walkingLeft = False
         self.walkingRight = True
