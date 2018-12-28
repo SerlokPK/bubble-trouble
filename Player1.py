@@ -12,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         self.velocity = 10
 
 
-def Update(self):
+def UpdatePlayer1(self):
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and self.xPosition > self.velocity:
         self.xPosition -= self.velocity
