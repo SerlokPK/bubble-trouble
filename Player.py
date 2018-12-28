@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
         self.playerHeight = 37
         self.walkingLeft = False
         self.walkingRight = False
-        self.velocity = 15
+        self.velocity = 10
 
 
 def Update(self):

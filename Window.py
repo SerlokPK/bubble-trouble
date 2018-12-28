@@ -6,6 +6,7 @@ pygame.init()
 windowWidth = 900
 windowHeight = 700
 running = True
+clock = pygame.time.Clock()
 
 window = pygame.display.set_mode((windowWidth, windowHeight))
 pygame.display.set_caption('Bubble trouble')
@@ -19,7 +20,7 @@ def redrawWindow():
 
 
 while running:
-    pygame.time.delay(50)
+    clock.tick(40)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
