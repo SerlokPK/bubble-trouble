@@ -1,17 +1,40 @@
 import pygame,math
 
+from bubble_movement import BubbleMovement
 
 class Bubble:
-    def __init__(self, position,screen):
-        self.x, self.y = position
-        self.screen = screen
-        self.speed = 0
-        self.angle = 0
+	def __init__(self,positionOfBall,screen,running,window_size,bubble_size):
+		self.positionOfBall = positionOfBall
+		self.screen = screen
+		(self.width,self.height) = window_size
+		self.bubble_size = bubble_size
+		self.running = running
 
-    def display(self):
-        img = pygame.image.load('rball6.bmp')
-        self.screen.blit(img,(self.x,self.y))
+		self.background_colour = (255, 255, 255)        #white color
+		self.img = pygame.image.load('rball6.bmp')
+		self.img = pygame.transform.scale(self.img, (self.bubble_size, self.bubble_size))
 
-    def move(self):
-        self.x += math.sin(self.angle) * self.speed
-        self.y -= math.cos(self.angle) * self.speed
+	def move_ball(self,numOfBubbles):
+		number_of_bubbles = numOfBubbles
+		my_bubbles = []
+
+		for n in range(number_of_bubbles):
+			bubble = BubbleMovement(self.positionOfBall, self.screen,(self.width,self.height), self.bubble_size)
+			bubble.speed = 0.5
+			bubble.angle = math.fabs(math.sin(2))
+
+			my_bubbles.append(bubble)
+
+		while self.running:
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					self.running = False
+
+			self.screen.fill(self.background_colour)
+
+			for bubble in my_bubbles:
+				bubble.move()
+				bubble.bounce()
+				bubble.display(self.img)
+
+			pygame.display.flip()
