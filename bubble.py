@@ -20,8 +20,8 @@ class Bubble:
 
 		for n in range(number_of_bubbles):
 			bubble = BubbleMovement(self.positionOfBall, self.screen,(self.width,self.height), self.bubble_size)
-			bubble.speed = 0.5
-			bubble.angle = math.fabs(math.sin(2))
+			bubble.speed = 0.8
+			bubble.angle = 2
 
 			my_bubbles.append(bubble)
 
