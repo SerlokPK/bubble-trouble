@@ -1,5 +1,4 @@
-import pygame
-import Window
+import pygame, Window
 
 
 if __name__ == '__main__':

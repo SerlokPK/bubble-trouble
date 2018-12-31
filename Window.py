@@ -1,7 +1,7 @@
 import pygame
 
-from Player1 import *
-from Player2 import *
+from Player import *
+from playerMovement import PlayerMovement
 from Projectile import *
 
 pygame.init()
@@ -12,8 +12,8 @@ clock = pygame.time.Clock()
 
 window = pygame.display.set_mode((windowWidth, windowHeight))
 pygame.display.set_caption('Bubble trouble')
-player1 = Player1(16, 630, 'player.png')
-player2 = Player2(860, 630, 'player2.png')
+player1 = Player(16, 630, 'player.png',pygame.K_a,pygame.K_d)
+player2 = Player(860, 630, 'player2.png',pygame.K_LEFT,pygame.K_RIGHT)
 projectile = Projectile(player1)
 
 
@@ -32,8 +32,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    UpdatePlayer1(player1)
-    UpdatePlayer2(player2)
+    PlayerMovement.UpdatePlayer(player1)
+    PlayerMovement.UpdatePlayer(player2)
     UpdateProjectile(projectile)
     redrawWindow()
 

@@ -11,14 +11,16 @@ class Player2(pygame.sprite.Sprite):
         self.walkingRight = False
         self.velocity = 10
 
+    def UpdatePlayer2(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a] and self.xPosition > self.velocity:
+            self.xPosition -= self.velocity
+            self.walkingLeft = True
+            self.walkingRight = False
+        if keys[pygame.K_d] and self.xPosition < 900 - self.playerWidth - self.velocity:
+            self.xPosition += self.velocity
+            self.walkingLeft = False
+            self.walkingRight = True
 
-def UpdatePlayer2(self):
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_a] and self.xPosition > self.velocity:
-        self.xPosition -= self.velocity
-        self.walkingLeft = True
-        self.walkingRight = False
-    if keys[pygame.K_d] and self.xPosition < 900 - self.playerWidth - self.velocity:
-        self.xPosition += self.velocity
-        self.walkingLeft = False
-        self.walkingRight = True
+
+
