@@ -1,7 +1,5 @@
-import pygame,turtle
-
+import pygame
 from bubble import Bubble
-
 
 class Program:
     def __init__(self):
@@ -18,7 +16,6 @@ class Program:
     def initializeWindow(self):
         pygame.display.set_caption('Bubble trouble')
         self.bubble.move_ball(1)
-        
 
    
 
