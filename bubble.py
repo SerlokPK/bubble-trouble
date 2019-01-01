@@ -1,4 +1,5 @@
-import pygame,math
+import pygame
+import math
 
 from bubble_movement import BubbleMovement
 
@@ -25,16 +26,15 @@ class Bubble:
 
 			my_bubbles.append(bubble)
 
-		while self.running:
+        #return my_bubbles
+
+"""while self.running:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					self.running = False
-
 			self.screen.fill(self.background_colour)
-
-			for bubble in my_bubbles:
+            for bubble in my_bubbles:
 				bubble.move()
-				bubble.bounce()
+                bubble.bounce()
 				bubble.display(self.img)
-
-			pygame.display.flip()
+			pygame.display.flip() """
