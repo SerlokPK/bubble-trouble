@@ -1,5 +1,6 @@
 import pygame
 from bubble import Bubble
+from Window import *
 
 class Program:
     def __init__(self):
@@ -20,4 +21,5 @@ class Program:
    
 
 if __name__ == '__main__':
-    Program()
+    window = Window()
+    window.runPlayers()
