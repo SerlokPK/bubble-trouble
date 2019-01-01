@@ -42,10 +42,6 @@ class Window:
 			PlayerMovement.UpdatePlayer(self, self.player1)
 			PlayerMovement.UpdatePlayer(self, self.player2)
 			UpdateProjectile(self.projectile)
-			for bubble in my_bubbles:
-				bubble.move()
-				bubble.bounce()
-				bubble.display(self.img)
 			self.redrawWindow()
 
 	def runBubble(self):
