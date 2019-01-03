@@ -1,4 +1,5 @@
-import pygame,math
+import pygame
+import math
 
 
 class BubbleMovement():
@@ -25,11 +26,11 @@ class BubbleMovement():
 			self.x = 2 * (self.width - self.bubble_size) - self.x
 			self.angle = - self.angle
 		elif self.x < 1:
-			self.x = 2 *  self.x
+			self.x = 2 * self.x
 			self.angle = - self.angle
 
 		if self.firstTouch == False and self.y <= self.height / 3 :
-			self.y =  (self.height / 3) - self.y
+			self.y = 3*(self.height / 3 - self.bubble_size) - self.y
 			self.angle = math.pi - self.angle
 
 		if self.y > self.height - self.bubble_size:
