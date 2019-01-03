@@ -12,7 +12,7 @@ class Bubble:
 		self.running = running
 
 		self.background_colour = (255, 255, 255)        #white color
-		self.img = pygame.image.load('rball6.bmp')
+		self.img = pygame.image.load('Images/rball6.bmp')
 		self.img = pygame.transform.scale(self.img, (self.bubble_size, self.bubble_size))
 		self.my_bubbles = []
 
