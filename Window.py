@@ -28,10 +28,12 @@ class Window:
 		self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  #iscrtavanje naseg player1
 		self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # iscrtavanje naseg player2
 		self.window.blit(self.projectile.image, (self.projectile.xPosition, self.projectile.yPosition))
+		self.bubble.move_ball()
 		pygame.display.update()  # da bi se oni pojavili na ekranu
 
 
-	def runPlayers(self):
+	def runGame(self):
+		self.bubble.init_ball(1)
 		while self.running:
 			self.clock.tick(40)
 
@@ -43,8 +45,5 @@ class Window:
 			PlayerMovement.UpdatePlayer(self, self.player2)
 			UpdateProjectile(self.projectile)
 			self.redrawWindow()
-
-	def runBubble(self):
-		self.bubble.move_ball(1)
 
 	pygame.quit()
