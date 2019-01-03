@@ -43,7 +43,7 @@ class Window:
 
 			PlayerMovement.UpdatePlayer(self, self.player1)
 			PlayerMovement.UpdatePlayer(self, self.player2)
-			UpdateProjectile(self.projectile)
+			#UpdateProjectile(self.projectile)
 			self.redrawWindow()
 
 	pygame.quit()
