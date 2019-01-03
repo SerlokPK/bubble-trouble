@@ -25,9 +25,10 @@ class Window:
 
 	def redrawWindow(self):
 		self.window.fill((255, 255, 255))
-		self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  #iscrtavanje naseg player1
+		self.window.blit(self.player1.projectile.image, (self.player1.projectile.xPosition, self.player1.projectile.yPosition))
+		self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
+		self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # iscrtavanje naseg player1
 		self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # iscrtavanje naseg player2
-		self.window.blit(self.projectile.image, (self.projectile.xPosition, self.projectile.yPosition))
 		self.bubble.move_ball()
 		pygame.display.update()  # da bi se oni pojavili na ekranu
 
@@ -40,10 +41,16 @@ class Window:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					self.running = False
+				keys = pygame.key.get_pressed()
+				if keys[pygame.K_SPACE]:
+					self.player1.fire()
+				elif keys[pygame.K_KP_ENTER]:
+					self.player2.fire()
 
 			PlayerMovement.UpdatePlayer(self, self.player1)
 			PlayerMovement.UpdatePlayer(self, self.player2)
-			#UpdateProjectile(self.projectile)
+			Projectile.UpdateProjectile(self.player1.projectile)
+			Projectile.UpdateProjectile(self.player2.projectile)
 			self.redrawWindow()
 
 	pygame.quit()
