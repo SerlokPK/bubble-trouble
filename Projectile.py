@@ -7,10 +7,8 @@ class Projectile(pygame.sprite.Sprite):
         self.yPosition = Player1.yPosition + 34
         self.velocity = 10
         self.alive = False
-        self.rect = self.image.get_rect()
 
     def UpdateProjectile(self):
-
         if self.alive:
             if self.yPosition > self.velocity:
                 self.yPosition -= self.velocity
