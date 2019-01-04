@@ -22,12 +22,18 @@ class BubbleMovement():
 			self.x = 2 * (self.width - self.bubble_size) - self.x
 			self.angle = - self.angle
 		elif self.x < 1:  # left wall bounce
-			self.x = 2 *  self.x
+			if self.x < 0:
+				self.x = 2 * (-self.x)
+			else:
+				self.x = 2 * self.x
 			self.angle = - self.angle
 
 		if self.y > self.height - self.bubble_size:	 # bottom (floor) bounce
 			self.y = 2 * (self.height - self.bubble_size) - self.y
 			self.angle = math.pi - self.angle
 		elif self.y < 1:
-			self.y = 2 * (-self.y)  # top (ceiling) bounce
+			if self.y < 0:
+				self.y = 2 * (-self.y)  # top (ceiling) bounce
+			else:
+				self.y = 2 * self.y
 			self.angle = math.pi - self.angle
