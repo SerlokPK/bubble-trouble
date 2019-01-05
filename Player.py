@@ -1,5 +1,6 @@
 import pygame
 from Projectile import *
+from bubble import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, xPosition, yPosition, image,left_key,right_key):
@@ -19,6 +20,8 @@ class Player(pygame.sprite.Sprite):
         if self.projectile.alive is False:   #ako ne postoji ispaljen projektil, ti ga ispali
             self.projectile = Projectile(self)
             self.projectile.alive = True
+
+
 
 
 

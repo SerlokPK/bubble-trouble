@@ -16,8 +16,8 @@ class Window:
 
 		self.window = pygame.display.set_mode((self.windowWidth, self.windowHeight))
 		pygame.display.set_caption('Bubble trouble')
-		self.player1 = Player(16, 630, 'Images/player.png',pygame.K_a,pygame.K_d)
-		self.player2 = Player(860, 630, 'Images/player2.png',pygame.K_LEFT,pygame.K_RIGHT)
+		self.player1 = Player(16, 663, 'Images/player.png',pygame.K_a,pygame.K_d)
+		self.player2 = Player(860, 663, 'Images/player2.png',pygame.K_LEFT,pygame.K_RIGHT)
 		self.projectile = Projectile(self.player1)
 
 		self.bubbleSize = 81                                #size of bubble
