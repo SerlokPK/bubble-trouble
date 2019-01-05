@@ -1,6 +1,7 @@
 import pygame
 
 from Player import *
+from level import Level
 from playerMovement import PlayerMovement
 from Projectile import *
 from bubble import Bubble
@@ -22,9 +23,12 @@ class Window:
 		self.bubbleSize = 81                                #size of bubble
 		self.positionOfBall = (400, 50)
 		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight),self.bubbleSize)      #check later, it will always be true (?)
+		self.levelImage = pygame.image.load('Images/level1.png')
+		self.level = Level()
 
 	def redrawWindow(self):
 		self.window.fill((255, 255, 255))
+		self.window.blit(self.levelImage, (0, 0))
 		self.window.blit(self.player1.projectile.image, (self.player1.projectile.xPosition, self.player1.projectile.yPosition))
 		self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
 		self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # iscrtavanje naseg player1
@@ -46,6 +50,11 @@ class Window:
 					self.player1.fire()
 				elif keys[pygame.K_KP_ENTER]:
 					self.player2.fire()
+				elif keys[pygame.K_r]:
+					self.level.restart_level(self.player1, self.player2, self.bubble)
+				elif keys[pygame.K_n]:
+					image = self.level.start_next_level(self.player1, self.player2, self.bubble)
+					self.levelImage = pygame.image.load(image)
 
 			PlayerMovement.UpdatePlayer(self, self.player1)
 			PlayerMovement.UpdatePlayer(self, self.player2)
