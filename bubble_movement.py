@@ -27,7 +27,10 @@ class BubbleMovement():
 			self.x = 2 * (self.width - self.bubble_size) - self.x
 			self.angle = - self.angle
 		elif self.x < 1:
-			self.x = 2 * self.x
+			if self.x < 0:
+				self.x = 2 * (-self.x)
+			else:
+				self.x = 2 * self.x
 			self.angle = - self.angle
 
 		if self.firstTouch == False and self.y <= self.height / 3 :
