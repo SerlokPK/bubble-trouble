@@ -36,22 +36,20 @@ class Window:
 		self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # iscrtavanje naseg player1
 		self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # iscrtavanje naseg player2
 		self.bubble.move_ball()
-		self.updatehitboxes()
-		pygame.draw.rect(self.window, (255, 0, 0), self.bubble.my_bubbles[0].hitbox, 2)
-		pygame.draw.rect(self.window, (255,0,0), self.player1.hitbox, 2)
-		pygame.draw.rect(self.window, (255,0,0), self.player2.hitbox, 2)
+		self.updateHitboxes()
+
 		pygame.display.update()  # da bi se oni pojavili na ekranu
 
-	def updatehitboxes(self):
+	def updateHitboxes(self):
 		self.player1.hitbox = (self.player1.xPosition, self.player1.yPosition, 23, 37)  #updating the hitboxes as players move
 		self.player2.hitbox = (self.player2.xPosition, self.player2.yPosition, 23, 37)
 		self.bubble.my_bubbles[0].hitbox = (self.bubble.my_bubbles[0].x, self.bubble.my_bubbles[0].y, 80, 80)  #we can use for loop to update all bubbles
 
-	def playerandballcollision(self):
+	def playeAndBallCollision(self):
 		for player in self.players:
 			for bubble in self.bubble.my_bubbles:
-				if bubble.y - 40 < player.hitbox[1] + player.hitbox[3] and bubble.y + 40 > player.hitbox[1] - player.hitbox[3]:
-					if bubble.x + 40 > player.hitbox[0] - player.hitbox[2] and bubble.x - 40 < player.hitbox[0] + player.hitbox[2]:
+				if bubble.y + 74 > player.hitbox[1]:  # 74 is ball diameter, hitbox[1] is Y coordinate for player
+					if bubble.x + 74 > player.hitbox[0] and bubble.x < player.hitbox[0] + player.hitbox[2]:  # hitbox[0] - players X coordinate, [2] - players width
 						self.level.restart_level(self.player1, self.player2, self.bubble)
 
 	def runGame(self):
@@ -60,7 +58,7 @@ class Window:
 		self.players.append(self.player2)
 		while self.running:
 			self.clock.tick(40)
-			self.playerandballcollision()
+			self.playeAndBallCollision()
 
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
