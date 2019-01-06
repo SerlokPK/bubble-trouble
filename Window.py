@@ -24,7 +24,8 @@ class Window:
 
 		self.bubbleSize = 81                                #size of bubble
 		self.positionOfBall = (400, 50)
-		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight),self.bubbleSize)      #check later, it will always be true (?)
+		self.bubbleAmplitude = 8
+		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight),self.bubbleSize,self.bubbleAmplitude)     
 		self.levelImage = pygame.image.load('Images/level1.png')
 		self.level = Level()
 
@@ -40,13 +41,13 @@ class Window:
 		self.window.blit(pygame.image.load('Images/number' + str(self.player2.lives) + '.png'), (865, 0))
 		if self.player1.lives > 0:
 			self.window.blit(self.player1.projectile.image, (self.player1.projectile.xPosition, self.player1.projectile.yPosition))
-			self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # iscrtavanje naseg player1
+			self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # show player1
 		if self.player2.lives > 0:
 			self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
-			self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # iscrtavanje naseg player2
+			self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # show player2
 		self.bubble.move_ball()
 		self.updateHitboxes()
-		pygame.display.update()  # da bi se oni pojavili na ekranu
+		pygame.display.update()  # show all on screen
 
 	def updateHitboxes(self):
 		self.player1.hitbox = (self.player1.xPosition, self.player1.yPosition, 23, 37)  #updating the hitboxes as players move

@@ -19,7 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.lives = 3
 
     def fire(self):
-        if self.projectile.alive is False:   #ako ne postoji ispaljen projektil, ti ga ispali
+        if self.projectile.alive is False:      # fire projectile if theres none
             self.projectile = Projectile(self)
             self.projectile.alive = True
 
