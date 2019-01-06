@@ -28,16 +28,24 @@ class Window:
 		self.levelImage = pygame.image.load('Images/level1.png')
 		self.level = Level()
 
+		self.lives1Image = pygame.image.load('Images/lives1.png')
+		self.lives2Image = pygame.image.load('Images/lives2.png')
+
 	def redrawWindow(self):
 		self.window.fill((255, 255, 255))
 		self.window.blit(self.levelImage, (0, 0))
-		self.window.blit(self.player1.projectile.image, (self.player1.projectile.xPosition, self.player1.projectile.yPosition))
-		self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
-		self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # iscrtavanje naseg player1
-		self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # iscrtavanje naseg player2
+		self.window.blit(self.lives1Image, (0, 0))
+		self.window.blit(pygame.image.load('Images/number' + str(self.player1.lives) + '.png'), (100, 0))
+		self.window.blit(self.lives2Image, (765, 0))
+		self.window.blit(pygame.image.load('Images/number' + str(self.player2.lives) + '.png'), (865, 0))
+		if self.player1.lives > 0:
+			self.window.blit(self.player1.projectile.image, (self.player1.projectile.xPosition, self.player1.projectile.yPosition))
+			self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # iscrtavanje naseg player1
+		if self.player2.lives > 0:
+			self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
+			self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # iscrtavanje naseg player2
 		self.bubble.move_ball()
 		self.updateHitboxes()
-
 		pygame.display.update()  # da bi se oni pojavili na ekranu
 
 	def updateHitboxes(self):
@@ -50,7 +58,13 @@ class Window:
 			for bubble in self.bubble.my_bubbles:
 				if bubble.y + 74 > player.hitbox[1]:  # 74 is ball diameter, hitbox[1] is Y coordinate for player
 					if bubble.x + 74 > player.hitbox[0] and bubble.x < player.hitbox[0] + player.hitbox[2]:  # hitbox[0] - players X coordinate, [2] - players width
-						self.level.restart_level(self.player1, self.player2, self.bubble)
+						player.lives -= 1
+						if player.lives == 0:
+							player.xPosition = -100
+							player.yPosition = -100
+						image = self.level.restart_level(self.player1, self.player2, self.bubble)
+						self.levelImage = pygame.image.load(image)
+						break
 
 	def runGame(self):
 		self.bubble.init_ball(1)
@@ -69,15 +83,22 @@ class Window:
 				elif keys[pygame.K_KP_ENTER]:
 					self.player2.fire()
 				elif keys[pygame.K_r]:
-					self.level.restart_level(self.player1, self.player2, self.bubble)
+					self.player1.lives = 0
+					self.player2.lives = 0
+					image = self.level.restart_level(self.player1, self.player2, self.bubble)
+					self.levelImage = pygame.image.load(image)
 				elif keys[pygame.K_n]:
 					image = self.level.start_next_level(self.player1, self.player2, self.bubble)
 					self.levelImage = pygame.image.load(image)
 
-			PlayerMovement.UpdatePlayer(self, self.player1)
-			PlayerMovement.UpdatePlayer(self, self.player2)
-			Projectile.UpdateProjectile(self.player1.projectile)
-			Projectile.UpdateProjectile(self.player2.projectile)
+			if self.player1.lives > 0:
+				PlayerMovement.UpdatePlayer(self, self.player1)
+				Projectile.UpdateProjectile(self.player1.projectile)
+
+			if self.player2.lives > 0:
+				PlayerMovement.UpdatePlayer(self, self.player2)
+				Projectile.UpdateProjectile(self.player2.projectile)
+
 			self.redrawWindow()
 
 	pygame.quit()

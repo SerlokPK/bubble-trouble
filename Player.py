@@ -16,6 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.right_key = right_key
         self.projectile = Projectile(self)
         self.hitbox = (self.xPosition, self.yPosition, 23, 37)
+        self.lives = 3
 
     def fire(self):
         if self.projectile.alive is False:   #ako ne postoji ispaljen projektil, ti ga ispali
