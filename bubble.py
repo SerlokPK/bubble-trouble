@@ -26,10 +26,11 @@ class Bubble:
 
 			self.my_bubbles.append(bubble)
 
-	def move_ball(self):
-		for bubble in self.my_bubbles:
+	def move_ball(self,projectile1,projectile2):
+		for (index, bubble) in enumerate(self.my_bubbles):
 			bubble.move()
 			bubble.bounce()
+			bubble.collision(projectile1,projectile2)
 			bubble.display(self.img)
 
 		pygame.display.flip()

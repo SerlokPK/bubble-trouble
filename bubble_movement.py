@@ -11,6 +11,7 @@ class BubbleMovement():
 		self.speed = 0
 		self.angle = 0
 		self.firstTouch = True
+		self.hitbox = (self.x, self.y, 74, 74)
 
 	def display(self,image):
 		self.screen.blit(image,(self.x,self.y))
@@ -18,7 +19,6 @@ class BubbleMovement():
 	def move(self):
 		self.x += (math.sin(self.angle) * self.speed) / 8
 		self.y -= (math.cos(self.angle) * self.speed)
-
 
 
 	def bounce(self):
@@ -30,7 +30,7 @@ class BubbleMovement():
 			self.angle = - self.angle
 
 		if self.firstTouch == False and self.y <= self.height / 3 :
-			self.y = 3*(self.height / 3 - self.bubble_size) - self.y
+			self.y = 3 * (self.height / 3 - self.bubble_size) - self.y
 			self.angle = math.pi - self.angle
 
 		if self.y > self.height - self.bubble_size:
@@ -40,3 +40,8 @@ class BubbleMovement():
 		elif self.y < 1:
 			self.y = 2 * self.y
 			self.angle = math.pi - self.angle
+
+	def collision(self,projectile1,projectile2):
+		if self.y + self.hitbox[2] > projectile1.hitbox[1] and self.y < projectile1.hitbox[1] + projectile1.hitbox[3]:
+			if self.x + self.hitbox[2] > projectile1.hitbox[0] and self.x < projectile1.hitbox[0] + projectile1.hitbox[2]:
+				return False;

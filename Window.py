@@ -22,7 +22,7 @@ class Window:
 
 		self.bubbleSize = 81                                #size of bubble
 		self.positionOfBall = (400, 50)
-		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight),self.bubbleSize)      #check later, it will always be true (?)
+		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight),self.bubbleSize)     
 		self.levelImage = pygame.image.load('Images/level1.png')
 		self.level = Level()
 
@@ -31,14 +31,15 @@ class Window:
 		self.window.blit(self.levelImage, (0, 0))
 		self.window.blit(self.player1.projectile.image, (self.player1.projectile.xPosition, self.player1.projectile.yPosition))
 		self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
-		self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # iscrtavanje naseg player1
-		self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # iscrtavanje naseg player2
-		self.bubble.move_ball()
-		pygame.display.update()  # da bi se oni pojavili na ekranu
+		self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # drawing player1
+		self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # drawing player2
+		self.bubble.move_ball(self.player1.projectile,self.player2.projectile)
+		pygame.display.update()  # show them on screen
 
 
 	def runGame(self):
 		self.bubble.init_ball(1)
+
 		while self.running:
 			self.clock.tick(40)
 
