@@ -1,7 +1,6 @@
 import pygame
 import math
 
-
 class BubbleMovement():
 	def __init__(self, position,screen,window_size,bubble_size,amplitude):
 		self.x, self.y = position
@@ -13,6 +12,7 @@ class BubbleMovement():
 		self.firstTouch = True
 		self.amplitude = amplitude
 		self.hitbox = (self.x, self.y, 74, 74)
+        self.img = pygame.image.load('Images/transparentBall.png')
 
 	def display(self,image):
 		self.screen.blit(image,(self.x,self.y))
@@ -27,7 +27,10 @@ class BubbleMovement():
 			self.x = 2 * (self.width - self.bubble_size) - self.x
 			self.angle = - self.angle
 		elif self.x < 1:
-			self.x = 2 * self.x
+			if self.x < 0:
+				self.x = 2 * (-self.x)
+			else:
+				self.x = 2 * self.x
 			self.angle = - self.angle
 
 		if self.firstTouch == False and self.y <= self.height / 3 :

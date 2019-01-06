@@ -4,7 +4,7 @@ class Projectile(pygame.sprite.Sprite):
     def __init__(self, Player1):
         self.image = pygame.image.load("Images/arrow.png")
         self.xPosition = Player1.xPosition + 6
-        self.yPosition = Player1.yPosition + 34     # head of projectile
+        self.yPosition = Player1.yPosition + 36         #head of projectile
         self.velocity = 10
         self.alive = False
         self.hitbox = (self.xPosition, self.yPosition, 8, 480)

@@ -1,5 +1,6 @@
 import pygame
 from Projectile import *
+from bubble import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, xPosition, yPosition, image,left_key,right_key):
@@ -14,11 +15,15 @@ class Player(pygame.sprite.Sprite):
         self.left_key = left_key
         self.right_key = right_key
         self.projectile = Projectile(self)
+        self.hitbox = (self.xPosition, self.yPosition, 23, 37)
+        self.lives = 3
 
     def fire(self):
         if self.projectile.alive is False:      # fire projectile if theres none
             self.projectile = Projectile(self)
             self.projectile.alive = True
+
+
 
 
 
