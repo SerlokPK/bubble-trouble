@@ -12,7 +12,7 @@ class BubbleMovement():
 		self.firstTouch = True
 		self.amplitude = amplitude
 		self.hitbox = (self.x, self.y, 74, 74)
-        self.img = pygame.image.load('Images/transparentBall.png')
+		self.img = pygame.image.load('Images/transparentBall.png')
 
 	def display(self,image):
 		self.screen.blit(image,(self.x,self.y))

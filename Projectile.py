@@ -11,7 +11,7 @@ class Projectile(pygame.sprite.Sprite):
 
     def UpdateProjectile(self):
         if self.alive:
-            if self.yPosition > - self.hitbox[3]:
+            if self.yPosition > self.velocity:
                 self.yPosition -= self.velocity
                 self.hitbox = (self.xPosition, self.yPosition, 8, 480)
             else:

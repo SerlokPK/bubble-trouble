@@ -45,7 +45,7 @@ class Window:
 		if self.player2.lives > 0:
 			self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
 			self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # show player2
-		self.bubble.move_ball()
+		self.bubble.move_ball(self.player1.projectile,self.player2.projectile)
 		self.updateHitboxes()
 		pygame.display.update()  # show all on screen
 
