@@ -7,7 +7,6 @@ class Projectile(pygame.sprite.Sprite):
         self.yPosition = Player1.yPosition + 34     # head of projectile
         self.velocity = 10
         self.alive = False
-        #self.tail = self.yPosition + 480            # tail of projectile
         self.hitbox = (self.xPosition, self.yPosition, 8, 480)
 
     def UpdateProjectile(self):

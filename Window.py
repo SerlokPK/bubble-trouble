@@ -22,7 +22,8 @@ class Window:
 
 		self.bubbleSize = 81                                #size of bubble
 		self.positionOfBall = (400, 50)
-		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight),self.bubbleSize)     
+		self.bubbleAmplitude = 8
+		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight),self.bubbleSize,self.bubbleAmplitude)     
 		self.levelImage = pygame.image.load('Images/level1.png')
 		self.level = Level()
 
