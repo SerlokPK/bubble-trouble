@@ -1,4 +1,5 @@
 from level_constants import *
+import pygame
 
 
 class Level:
@@ -35,7 +36,8 @@ class Level:
                 player2.xPosition = L1_P2_xPOSITION
                 player2.yPosition = L1_P2_yPOSITION
             bubble.positionOfBall = L1_BUBBLE_POSITION
-            bubble.init_ball(L1_NUMBER_OF_BALLS)
+            img = pygame.image.load('Images/transparentBall.png')
+            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,img)
             image = L1_IMAGE
         elif self.currentLevel == 2:
             if player1.lives > 0:
@@ -45,7 +47,7 @@ class Level:
                 player2.xPosition = L2_P2_xPOSITION
                 player2.yPosition = L2_P2_yPOSITION
             bubble.positionOfBall = L2_BUBBLE_POSITION
-            bubble.init_ball(L1_NUMBER_OF_BALLS)
+            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,L2_IMAGE)
             image = L2_IMAGE
         elif self.currentLevel == 3:
             if player1.lives > 0:
@@ -55,7 +57,7 @@ class Level:
                 player2.xPosition = L3_P2_xPOSITION
                 player2.yPosition = L3_P2_yPOSITION
             bubble.positionOfBall = L3_BUBBLE_POSITION
-            bubble.init_ball(L1_NUMBER_OF_BALLS)
+            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,L3_IMAGE)
             image = L3_IMAGE
         elif self.currentLevel == 4:
             if player1.lives > 0:
@@ -65,7 +67,7 @@ class Level:
                 player2.xPosition = L4_P2_xPOSITION
                 player2.yPosition = L4_P2_yPOSITION
             bubble.positionOfBall = L4_BUBBLE_POSITION
-            bubble.init_ball(L1_NUMBER_OF_BALLS)
+            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,L4_IMAGE)
             image = L4_IMAGE
         else:  # self.currentLevel == 5:
             if player1.lives > 0:
@@ -75,7 +77,7 @@ class Level:
                 player2.xPosition = L5_P2_xPOSITION
                 player2.yPosition = L5_P2_yPOSITION
             bubble.positionOfBall = L5_BUBBLE_POSITION
-            bubble.init_ball(L1_NUMBER_OF_BALLS)
+            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,L5_IMAGE)
             image = L5_IMAGE
 
         return image
