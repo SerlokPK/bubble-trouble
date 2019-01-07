@@ -43,39 +43,34 @@ class Bubble:
 				bubble_size = bubble.bubble_size
 				amplitude = bubble.amplitude
 				self.positionOfBall = (bubble.x, bubble.y)
-				self.remove_ball(index)
 
-				if isCollision[1] == 1:
-					projectile1.alive = False
-					projectile1.xPosition = -20
-					projectile1.yPosition = 0
-					projectile1.hitbox = (projectile1.xPosition, projectile1.yPosition, 8, 480)
-				else:
-					projectile2.alive = False
-					projectile2.xPosition = -20
-					projectile2.yPosition = 0
-					projectile2.hitbox = (projectile2.xPosition, projectile2.yPosition, 8, 480)
-
-				isCollision = (False,1)
+				self.check_player_collision(isCollision[1],index,projectile1,projectile2)
 				self.init_ball(2,collisionTime,bubble_size,amplitude,img)
 				self.move_ball(projectile1,projectile2)
 			elif isCollision[0] == True and bubble.collisionTime == 3:
-				self.remove_ball(index)
-				if isCollision[1] == 1:
-					projectile1.alive = False
-					projectile1.xPosition = -20
-					projectile1.yPosition = 0
-					projectile1.hitbox = (projectile1.xPosition, projectile1.yPosition, 8, 480)
-				else:
-					projectile2.alive = False
-					projectile2.xPosition = -20
-					projectile2.yPosition = 0
-					projectile2.hitbox = (projectile2.xPosition, projectile2.yPosition, 8, 480)
+				self.check_player_collision(isCollision[1],index,projectile1,projectile2)
 
-				isCollision = (False,1)
 			bubble.display(img)
 
 		pygame.display.flip()
 
 	def remove_ball(self,index):
 		del self.my_bubbles[index]
+
+	def check_player_collision(self,collisionOnPlayer,index,projectile1,projectile2):
+		self.remove_ball(index)
+
+		if collisionOnPlayer == 1:
+			projectile1.alive = False
+			projectile1.xPosition = -20
+			projectile1.yPosition = 0
+			projectile1.hitbox = (projectile1.xPosition, projectile1.yPosition, 8, 480)
+		else:
+			projectile2.alive = False
+			projectile2.xPosition = -20
+			projectile2.yPosition = 0
+			projectile2.hitbox = (projectile2.xPosition, projectile2.yPosition, 8, 480)
+
+		isCollision = (False,1)
+		
+				
