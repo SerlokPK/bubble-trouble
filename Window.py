@@ -18,14 +18,15 @@ class Window:
 
 		self.window = pygame.display.set_mode((self.windowWidth, self.windowHeight))
 		pygame.display.set_caption('Bubble trouble')
+
 		self.player1 = Player(16, 663, 'Images/player.png',pygame.K_a,pygame.K_d)
 		self.player2 = Player(860, 663, 'Images/player2.png',pygame.K_LEFT,pygame.K_RIGHT)
-		self.projectile = Projectile(self.player1)
 
 		self.bubbleSize = 81                                #size of bubble
 		self.positionOfBall = (400, 50)
 		self.bubbleAmplitude = 8
-		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight),self.bubbleSize,self.bubbleAmplitude)     
+		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight))     
+		
 		self.levelImage = pygame.image.load('Images/level1.png')
 		self.level = Level()
 
@@ -39,14 +40,17 @@ class Window:
 		self.window.blit(pygame.image.load('Images/number' + str(self.player1.lives) + '.png'), (100, 0))
 		self.window.blit(self.lives2Image, (765, 0))
 		self.window.blit(pygame.image.load('Images/number' + str(self.player2.lives) + '.png'), (865, 0))
+
 		if self.player1.lives > 0:
 			self.window.blit(self.player1.projectile.image, (self.player1.projectile.xPosition, self.player1.projectile.yPosition))
 			self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # show player1
 		if self.player2.lives > 0:
 			self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
 			self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # show player2
+		
 		self.bubble.move_ball(self.player1.projectile,self.player2.projectile)
 		self.updateHitboxes()
+
 		pygame.display.update()  # show all on screen
 
 	def updateHitboxes(self):
@@ -68,7 +72,8 @@ class Window:
 						break
 
 	def runGame(self):
-		self.bubble.init_ball(1)
+		img = pygame.image.load('Images/transparentBall.png')
+		self.bubble.init_ball(1, 0, 81, 8,img)              # at start we have 1 ball and collision is 0, bubble size and amplitude
 		self.players.append(self.player1)
 		self.players.append(self.player2)
 		while self.running:
