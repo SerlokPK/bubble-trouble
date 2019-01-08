@@ -6,6 +6,8 @@ from playerMovement import PlayerMovement
 from Projectile import *
 from bubble import Bubble
 from level import *
+from random import Random
+from bonus import *
 
 class Window:
 	def __init__(self):
@@ -25,13 +27,15 @@ class Window:
 		self.bubbleSize = 74                                #size of bubble
 		self.positionOfBall = (400, 50)
 		self.bubbleAmplitude = 8
-		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight))     
-		
+		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight))
+
 		self.levelImage = pygame.image.load('Images/level1.png')
 		self.level = Level()
 
 		self.lives1Image = pygame.image.load('Images/lives1.png')
 		self.lives2Image = pygame.image.load('Images/lives2.png')
+
+		self.bonus = Bonus(0,0, 'Images/bonus.png')
 
 	def redrawWindow(self):
 		self.window.fill((255, 255, 255))
@@ -47,12 +51,15 @@ class Window:
 		if self.player2.lives > 0:
 			self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
 			self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # show player2
-		
+
 		self.bubble.move_ball(self.player1.projectile,self.player2.projectile)
 
 		if len(self.bubble.my_bubbles) == 0:
 			image = self.level.start_next_level(self.player1, self.player2, self.bubble)
 			self.levelImage = pygame.image.load(image)
+
+		if self.bonus.enabled == True:
+			self.window.blit(self.bonus.image, (self.bonus.xPosition, self.bonus.yPosition))
 
 		self.updateHitboxes()
 
@@ -62,6 +69,7 @@ class Window:
 		self.player1.hitbox = (self.player1.xPosition, self.player1.yPosition, 23, 37)  #updating the hitboxes as players move
 		self.player2.hitbox = (self.player2.xPosition, self.player2.yPosition, 23, 37)
 		self.bubble.my_bubbles[0].hitbox = (self.bubble.my_bubbles[0].x, self.bubble.my_bubbles[0].y, 80, 80)  #we can use for loop to update all bubbles
+		self.bonus.hitbox = (self.bonus.xPosition, self.bonus.yPosition, 23, 37)
 
 	def playeAndBallCollision(self):
 		for player in self.players:
@@ -76,6 +84,14 @@ class Window:
 						self.levelImage = pygame.image.load(image)
 						break
 
+	def playerAndBonusCollision(self):
+		for player in self.players:
+			if self.bonus.xPosition + self.bonus.bonusWidth > player.hitbox[0] and self.bonus.xPosition < player.hitbox[0] + player.hitbox[2]:
+				if player.lives < 3:
+					player.lives += 1
+				self.bonus.enabled = False
+
+
 	def runGame(self):
 		img = pygame.image.load('Images/transparentBall.png')
 		self.bubble.init_ball(1, 0, 81, 8,img)              # at start we have 1 ball and collision is 0, bubble size and amplitude
@@ -84,6 +100,7 @@ class Window:
 		while self.running:
 			self.clock.tick(40)
 			self.playeAndBallCollision()
+			self.playerAndBonusCollision()
 
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
@@ -109,6 +126,12 @@ class Window:
 			if self.player2.lives > 0:
 				PlayerMovement.UpdatePlayer(self, self.player2)
 				Projectile.UpdateProjectile(self.player2.projectile)
+
+			rand = Random()
+			if rand.randint(0, 100) <= 1 & self.bonus.enabled == False:
+				self.bonus.yPosition = 663
+				self.bonus.xPosition = rand.randint(16, 860)
+				self.bonus.enabled = True
 
 			self.redrawWindow()
 
