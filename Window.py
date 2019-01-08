@@ -49,6 +49,11 @@ class Window:
 			self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # show player2
 		
 		self.bubble.move_ball(self.player1.projectile,self.player2.projectile)
+
+		if len(self.bubble.my_bubbles) == 0:
+			image = self.level.start_next_level(self.player1, self.player2, self.bubble)
+			self.levelImage = pygame.image.load(image)
+
 		self.updateHitboxes()
 
 		pygame.display.update()  # show all on screen
