@@ -14,7 +14,6 @@ class BubbleMovement():
 		self.angle = 0
 		self.firstTouch = True
 		self.amplitude = amplitude
-		self.hitbox = (self.x, self.y, self.bubble_size, self.bubble_size)
 		self.img = img
 		self.collisionTime = collisionTime
 
@@ -51,16 +50,16 @@ class BubbleMovement():
 
 	def collision(self,projectile1,projectile2):
 		#PLAYER 1
-		if self.y + self.hitbox[2] > projectile1.hitbox[1] and self.y < projectile1.hitbox[1] + projectile1.hitbox[3]:
-			if self.x + self.hitbox[2] > projectile1.hitbox[0] and self.x < projectile1.hitbox[0] + projectile1.hitbox[2]:
+		if self.y + self.bubble_size > projectile1.hitbox[1]:
+			if self.x + self.bubble_size > projectile1.hitbox[0] and self.x < projectile1.hitbox[0] + projectile1.hitbox[2]:
 				self.collisionTime += 1
 				self.bubble_size -= BUBBLE_SIZER * self.collisionTime
 				self.amplitude -= AMPLITUDE_SIZER * self.collisionTime
 				return (True,1)
 
 		#PLAYER 2
-		if self.y + self.hitbox[2] > projectile2.hitbox[1] and self.y < projectile2.hitbox[1] + projectile2.hitbox[3]:
-			if self.x + self.hitbox[2] > projectile2.hitbox[0] and self.x < projectile2.hitbox[0] + projectile2.hitbox[2]:
+		if self.y + self.bubble_size > projectile2.hitbox[1]:
+			if self.x + self.bubble_size > projectile2.hitbox[0] and self.x < projectile2.hitbox[0] + projectile2.hitbox[2]:
 				self.collisionTime += 1
 				self.bubble_size -= BUBBLE_SIZER * self.collisionTime
 				self.amplitude -= AMPLITUDE_SIZER * self.collisionTime
