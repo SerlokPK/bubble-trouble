@@ -22,7 +22,7 @@ class Window:
 		self.player1 = Player(16, 663, 'Images/player.png',pygame.K_a,pygame.K_d)
 		self.player2 = Player(860, 663, 'Images/player2.png',pygame.K_LEFT,pygame.K_RIGHT)
 
-		self.bubbleSize = 81                                #size of bubble
+		self.bubbleSize = 74                                #size of bubble
 		self.positionOfBall = (400, 50)
 		self.bubbleAmplitude = 8
 		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight))     
@@ -61,8 +61,8 @@ class Window:
 	def playeAndBallCollision(self):
 		for player in self.players:
 			for bubble in self.bubble.my_bubbles:
-				if bubble.y + 74 > player.hitbox[1]:  # 74 is ball diameter, hitbox[1] is Y coordinate for player
-					if bubble.x + 74 > player.hitbox[0] and bubble.x < player.hitbox[0] + player.hitbox[2]:  # hitbox[0] - players X coordinate, [2] - players width
+				if bubble.y + bubble.bubble_size > player.hitbox[1]:  # 74 is ball diameter, hitbox[1] is Y coordinate for player
+					if bubble.x + bubble.bubble_size > player.hitbox[0] and bubble.x < player.hitbox[0] + player.hitbox[2]:  # hitbox[0] - players X coordinate, [2] - players width
 						player.lives -= 1
 						if player.lives == 0:
 							player.xPosition = -100
