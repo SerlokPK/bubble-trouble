@@ -25,8 +25,8 @@ class Window:
 		self.bubbleSize = 74                                #size of bubble
 		self.positionOfBall = (400, 50)
 		self.bubbleAmplitude = 8
-		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight))     
-		
+		self.bubble = Bubble(self.positionOfBall,self.window,self.running,(self.windowWidth, self.windowHeight))
+
 		self.levelImage = pygame.image.load('Images/level1.png')
 		self.level = Level()
 
@@ -47,7 +47,7 @@ class Window:
 		if self.player2.lives > 0:
 			self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
 			self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # show player2
-		
+
 		self.bubble.move_ball(self.player1.projectile,self.player2.projectile)
 
 		if len(self.bubble.my_bubbles) == 0:
@@ -78,7 +78,8 @@ class Window:
 
 	def runGame(self):
 		img = pygame.image.load('Images/transparentBall.png')
-		self.bubble.init_ball(1, 0, 81, 8,img)              # at start we have 1 ball and collision is 0, bubble size and amplitude
+
+		self.bubble.init_ball(1, 4, 81, 10,img)              # at start we have 1 ball and collision is 0, bubble size and amplitude
 		self.players.append(self.player1)
 		self.players.append(self.player2)
 		while self.running:
