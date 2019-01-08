@@ -8,9 +8,7 @@ class Bubble:
 		self.positionOfBall = positionOfBall
 		self.screen = screen
 		(self.width,self.height) = window_size
-		#self.bubble_size = bubble_size
 		self.running = running
-		#self.amplitude = amplitude
 
 		self.background_colour = (255, 255, 255)            # white color
 		self.my_bubbles = []
@@ -72,5 +70,3 @@ class Bubble:
 			projectile2.hitbox = (projectile2.xPosition, projectile2.yPosition, 8, 480)
 
 		isCollision = (False,1)
-		
-				
