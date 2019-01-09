@@ -23,7 +23,6 @@ class Level:
         player2.projectile.alive = False
         player2.projectile.xPosition = -20
         player2.velocity = 10
-        img = pygame.image.load('Images/transparentBall.png')
 
         if player1.lives == 0 and player2.lives == 0:
             self.currentLevel = 1
@@ -38,7 +37,8 @@ class Level:
                 player2.xPosition = L1_P2_xPOSITION
                 player2.yPosition = L1_P2_yPOSITION
             bubble.positionOfBall = L1_BUBBLE_POSITION
-            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,img)
+            img = pygame.image.load('Images/transparentBall.png')
+            bubble.init_ball(L1_NUMBER_OF_BALLS, 4, 81, 10, img)
             image = L1_IMAGE
         elif self.currentLevel == 2:
             if player1.lives > 0:
@@ -48,7 +48,8 @@ class Level:
                 player2.xPosition = L2_P2_xPOSITION
                 player2.yPosition = L2_P2_yPOSITION
             bubble.positionOfBall = L2_BUBBLE_POSITION
-            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,img)
+            img = pygame.image.load('Images/yellow_ball.gif')
+            bubble.init_ball(L2_NUMBER_OF_BALLS, 3, 61, 8, img)
             image = L2_IMAGE
         elif self.currentLevel == 3:
             if player1.lives > 0:
@@ -58,7 +59,8 @@ class Level:
                 player2.xPosition = L3_P2_xPOSITION
                 player2.yPosition = L3_P2_yPOSITION
             bubble.positionOfBall = L3_BUBBLE_POSITION
-            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,img)
+            img = pygame.image.load('Images/orange_ball.gif')
+            bubble.init_ball(L3_NUMBER_OF_BALLS, 5, 101, 12, img)
             image = L3_IMAGE
         elif self.currentLevel == 4:
             if player1.lives > 0:
@@ -68,7 +70,8 @@ class Level:
                 player2.xPosition = L4_P2_xPOSITION
                 player2.yPosition = L4_P2_yPOSITION
             bubble.positionOfBall = L4_BUBBLE_POSITION
-            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,img)
+            img = pygame.image.load('Images/green_ball.gif')
+            bubble.init_ball(L4_NUMBER_OF_BALLS, 3, 61, 8, img)
             image = L4_IMAGE
         elif self.currentLevel == 5:
             if player1.lives > 0:
@@ -78,7 +81,8 @@ class Level:
                 player2.xPosition = L5_P2_xPOSITION
                 player2.yPosition = L5_P2_yPOSITION
             bubble.positionOfBall = L5_BUBBLE_POSITION
-            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,img)
+            img = pygame.image.load('Images/orange_ball.gif')
+            bubble.init_ball(L5_NUMBER_OF_BALLS, 7, 141, 16, img)
             image = L5_IMAGE
         else:
             if player1.lives > 0:
