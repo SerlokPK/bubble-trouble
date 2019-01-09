@@ -146,7 +146,7 @@ class Window:
 				Projectile.UpdateProjectile(self.player2.projectile)
 
 			rand = Random()
-			if rand.randint(0, 100) <= 1 and self.bonus.enabled == False:
+			if rand.randint(0, 10000) <= 1 and self.bonus.enabled == False:
 				self.bonus.yPosition = 663
 				self.bonus.xPosition = rand.randint(16, 860)
 				self.bonus.enabled = True
@@ -157,7 +157,7 @@ class Window:
 				else:
 					bonusTimer += 1
 
-			if rand.randint(0, 100) <= 1 and self.negativeBonus.enabled == False and self.slowed == False:
+			if rand.randint(0, 1000) <= 1 and self.negativeBonus.enabled == False and self.slowed == False:
 				self.negativeBonus.yPosition = 663
 				self.negativeBonus.xPosition = rand.randint(16, 860)
 				self.negativeBonus.enabled = True
