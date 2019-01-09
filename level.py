@@ -92,7 +92,11 @@ class Level:
                 player2.xPosition = random.randint(16, 860)
                 player2.yPosition = L5_P2_yPOSITION
             bubble.positionOfBall = (random.randint(100, 600), 50)
-            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81,8,img)
+            img = [pygame.image.load('Images/yellow_ball.gif'),
+                   pygame.image.load('Images/orange_ball.gif'),
+                   pygame.image.load('Images/green_ball.gif'),
+                   pygame.image.load('Images/transparentBall.png')]
+            bubble.init_ball(L1_NUMBER_OF_BALLS, 10, 201, 22, img[random.randint(0, 3)])
 
             if self.currentLevel % 5 == 1:
                 image = L1_IMAGE

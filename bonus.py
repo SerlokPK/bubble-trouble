@@ -1,5 +1,6 @@
 import pygame
 
+
 class Bonus(pygame.sprite.Sprite):
     def __init__(self, xPosition, yPosition, image):
         self.xPosition = xPosition

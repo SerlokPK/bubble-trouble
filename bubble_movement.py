@@ -4,10 +4,11 @@ import math
 BUBBLE_SIZER = 20
 AMPLITUDE_SIZER = 2
 
-class BubbleMovement():
-	def __init__(self, position,screen,window_size,bubble_size,amplitude,collisionTime,img):
+
+class BubbleMovement:
+	def __init__(self, position, screen, window_size, bubble_size, amplitude, collisionTime, img):
 		self.x, self.y = position
-		self.width,self.height = window_size
+		self.width, self.height = window_size
 		self.bubble_size = bubble_size
 		self.screen = screen
 		self.speed = 0
@@ -17,13 +18,12 @@ class BubbleMovement():
 		self.img = img
 		self.collisionTime = collisionTime
 
-	def display(self,image):
-		self.screen.blit(image,(self.x,self.y))
+	def display(self, image):
+		self.screen.blit(image, (self.x, self.y))
 
 	def move(self):
 		self.x += (math.sin(self.angle) * self.speed) / self.amplitude
 		self.y -= (math.cos(self.angle) * self.speed)
-
 
 	def bounce(self):
 		if self.x > self.width - self.bubble_size:
@@ -48,21 +48,19 @@ class BubbleMovement():
 			self.y = 2 * self.y
 			self.angle = math.pi - self.angle
 
-	def collision(self,projectile1,projectile2):
-		#PLAYER 1
-		if self.y + self.bubble_size > projectile1.hitbox[1]:
+	def collision(self, projectile1, projectile2):
+		if self.y + self.bubble_size > projectile1.hitbox[1]:  # PLAYER 1
 			if self.x + self.bubble_size > projectile1.hitbox[0] and self.x < projectile1.hitbox[0] + projectile1.hitbox[2]:
 				self.collisionTime -= 1
 				self.bubble_size -= BUBBLE_SIZER
 				self.amplitude -= AMPLITUDE_SIZER
-				return (True,1)
+				return True, 1
 
-		#PLAYER 2
-		if self.y + self.bubble_size > projectile2.hitbox[1]:
+		if self.y + self.bubble_size > projectile2.hitbox[1]:  # PLAYER 2
 			if self.x + self.bubble_size > projectile2.hitbox[0] and self.x < projectile2.hitbox[0] + projectile2.hitbox[2]:
 				self.collisionTime -= 1
 				self.bubble_size -= BUBBLE_SIZER
 				self.amplitude -= AMPLITUDE_SIZER
-				return (True,2);
+				return True, 2
 
-		return (False,1)
+		return False, 1
