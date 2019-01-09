@@ -3,7 +3,7 @@ from Projectile import *
 from bubble import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, xPosition, yPosition, image,left_key,right_key):
+    def __init__(self, xPosition: object, yPosition: object, image: object, left_key: object, right_key: object) -> object:
         self.xPosition = xPosition
         self.yPosition = yPosition
         self.image = pygame.image.load(image)
