@@ -79,7 +79,7 @@ class Window:
 	def runGame(self):
 		img = pygame.image.load('Images/transparentBall.png')
 
-		self.bubble.init_ball(1, 4, 81, 10,img)              # at start we have 1 ball and collision is 0, bubble size and amplitude
+		self.bubble.init_ball(1, 4, 74, 10,img)              # at start we have 1 ball and collision is 0, bubble size and amplitude
 		self.players.append(self.player1)
 		self.players.append(self.player2)
 		while self.running:
