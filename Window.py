@@ -97,6 +97,7 @@ class Window:
 		self.bubble.init_ball(1, 0, 81, 8,img)              # at start we have 1 ball and collision is 0, bubble size and amplitude
 		self.players.append(self.player1)
 		self.players.append(self.player2)
+		twoSec = 0
 		while self.running:
 			self.clock.tick(40)
 			self.playeAndBallCollision()
@@ -132,6 +133,14 @@ class Window:
 				self.bonus.yPosition = 663
 				self.bonus.xPosition = rand.randint(16, 860)
 				self.bonus.enabled = True
+			elif self.bonus.enabled:
+				if twoSec >= 80:
+					self.bonus.enabled = False
+					twoSec = 0
+				else:
+					twoSec += 1
+
+
 
 			self.redrawWindow()
 
