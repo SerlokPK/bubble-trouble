@@ -1,3 +1,5 @@
+import random
+
 from level_constants import *
 import pygame
 
@@ -20,9 +22,6 @@ class Level:
         player2.projectile.alive = False
         player2.projectile.xPosition = -20
         img = pygame.image.load('Images/transparentBall.png')
-
-        if self.currentLevel > 5:
-            self.currentLevel = 1
 
         if player1.lives == 0 and player2.lives == 0:
             self.currentLevel = 1
@@ -69,7 +68,7 @@ class Level:
             bubble.positionOfBall = L4_BUBBLE_POSITION
             bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,img)
             image = L4_IMAGE
-        else:  # self.currentLevel == 5:
+        elif self.currentLevel == 5:
             if player1.lives > 0:
                 player1.xPosition = L5_P1_xPOSITION
                 player1.yPosition = L5_P1_yPOSITION
@@ -79,5 +78,25 @@ class Level:
             bubble.positionOfBall = L5_BUBBLE_POSITION
             bubble.init_ball(L1_NUMBER_OF_BALLS,0,81, 8,img)
             image = L5_IMAGE
+        else:
+            if player1.lives > 0:
+                player1.xPosition = random.randint(16, 860)
+                player1.yPosition = L5_P1_yPOSITION  # Y coordinate is always 663 for players
+            if player2.lives > 0:
+                player2.xPosition = random.randint(16, 860)
+                player2.yPosition = L5_P2_yPOSITION
+            bubble.positionOfBall = (random.randint(100, 600), 50)
+            bubble.init_ball(L1_NUMBER_OF_BALLS,0,81,8,img)
+
+            if self.currentLevel % 5 == 1:
+                image = L1_IMAGE
+            elif self.currentLevel % 5 == 2:
+                image = L2_IMAGE
+            elif self.currentLevel % 5 == 3:
+                image = L3_IMAGE
+            elif self.currentLevel % 5 == 4:
+                image = L4_IMAGE
+            else:
+                image = L5_IMAGE
 
         return image
