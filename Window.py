@@ -87,7 +87,7 @@ class Window:
 	def playerAndBonusCollision(self):
 		for player in self.players:
 			if self.bonus.xPosition + self.bonus.bonusWidth > player.hitbox[0] and self.bonus.xPosition < player.hitbox[0] + player.hitbox[2]:
-				if player.lives < 3:
+				if player.lives < 5 and self.bonus.enabled:
 					player.lives += 1
 				self.bonus.enabled = False
 
