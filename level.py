@@ -19,8 +19,10 @@ class Level:
         bubble.my_bubbles = []
         player1.projectile.alive = False
         player1.projectile.xPosition = -20
+        player1.velocity = 10
         player2.projectile.alive = False
         player2.projectile.xPosition = -20
+        player2.velocity = 10
         img = pygame.image.load('Images/transparentBall.png')
 
         if player1.lives == 0 and player2.lives == 0:
