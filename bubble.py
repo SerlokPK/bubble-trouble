@@ -36,7 +36,7 @@ class Bubble:
 			isCollision = bubble.collision(projectile1,projectile2)
 			img = bubble.img
 
-			if isCollision[0] == True and bubble.collisionTime < 3:
+			if isCollision[0] == True and bubble.collisionTime > 0:
 				collisionTime = bubble.collisionTime
 				bubble_size = bubble.bubble_size
 				amplitude = bubble.amplitude
@@ -45,7 +45,7 @@ class Bubble:
 				self.check_player_collision(isCollision[1],index,projectile1,projectile2)
 				self.init_ball(2,collisionTime,bubble_size,amplitude,img)
 				self.move_ball(projectile1,projectile2)
-			elif isCollision[0] == True and bubble.collisionTime == 3:
+			elif isCollision[0] == True and bubble.collisionTime == 0:
 				self.check_player_collision(isCollision[1],index,projectile1,projectile2)
 
 			bubble.display(img)

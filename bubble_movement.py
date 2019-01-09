@@ -52,17 +52,17 @@ class BubbleMovement():
 		#PLAYER 1
 		if self.y + self.bubble_size > projectile1.hitbox[1]:
 			if self.x + self.bubble_size > projectile1.hitbox[0] and self.x < projectile1.hitbox[0] + projectile1.hitbox[2]:
-				self.collisionTime += 1
-				self.bubble_size -= BUBBLE_SIZER * self.collisionTime
-				self.amplitude -= AMPLITUDE_SIZER * self.collisionTime
+				self.collisionTime -= 1
+				self.bubble_size -= BUBBLE_SIZER
+				self.amplitude -= AMPLITUDE_SIZER
 				return (True,1)
 
 		#PLAYER 2
 		if self.y + self.bubble_size > projectile2.hitbox[1]:
 			if self.x + self.bubble_size > projectile2.hitbox[0] and self.x < projectile2.hitbox[0] + projectile2.hitbox[2]:
-				self.collisionTime += 1
-				self.bubble_size -= BUBBLE_SIZER * self.collisionTime
-				self.amplitude -= AMPLITUDE_SIZER * self.collisionTime
+				self.collisionTime -= 1
+				self.bubble_size -= BUBBLE_SIZER
+				self.amplitude -= AMPLITUDE_SIZER
 				return (True,2);
 
 		return (False,1)
