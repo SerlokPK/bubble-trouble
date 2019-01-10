@@ -29,7 +29,7 @@ class BubbleService:
 
             self.my_bubbles.append(bubble)
 
-    def move_ball(self, projectile1, projectile2):
+    def move_ball(self, projectile1, projectile2, queue):
         for (index, bubble) in enumerate(self.my_bubbles):
             bubble.move()
             bubble.bounce()
@@ -42,11 +42,11 @@ class BubbleService:
                 amplitude = bubble.amplitude
                 self.positionOfBall = (bubble.x, bubble.y)
 
-                self.check_player_collision(isCollision[1], index, projectile1, projectile2)
+                self.check_player_collision(isCollision[1], index, projectile1, projectile2, queue)
                 self.init_ball(2, collisionTime, bubble_size, amplitude, img)
-                self.move_ball(projectile1, projectile2)
+                self.move_ball(projectile1, projectile2, queue)
             elif isCollision[0] and bubble.collisionTime == 0:
-                self.check_player_collision(isCollision[1], index, projectile1, projectile2)
+                self.check_player_collision(isCollision[1], index, projectile1, projectile2, queue)
 
             bubble.display(img)
 
@@ -55,7 +55,7 @@ class BubbleService:
     def remove_ball(self, index):
         del self.my_bubbles[index]
 
-    def check_player_collision(self, collisionOnPlayer, index, projectile1, projectile2):
+    def check_player_collision(self, collisionOnPlayer, index, projectile1, projectile2, queue):
         self.remove_ball(index)
 
         if collisionOnPlayer == 1:
@@ -63,8 +63,10 @@ class BubbleService:
             projectile1.xPosition = -20
             projectile1.yPosition = 0
             projectile1.hitbox = (projectile1.xPosition, projectile1.yPosition, 8, 480)
+            queue.put(1)
         else:
             projectile2.alive = False
             projectile2.xPosition = -20
             projectile2.yPosition = 0
             projectile2.hitbox = (projectile2.xPosition, projectile2.yPosition, 8, 480)
+            queue.put(2)
