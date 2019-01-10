@@ -1,5 +1,5 @@
 from player import *
-from playerMovement import PlayerMovement
+from player_movement import PlayerMovement
 from projectile import *
 from level import *
 from random import Random
@@ -130,14 +130,6 @@ class Window:
                     self.player1.fire()
                 elif keys[pygame.K_KP_ENTER]:
                     self.player2.fire()
-                elif keys[pygame.K_r]:
-                    self.player1.lives = 0
-                    self.player2.lives = 0
-                    image = self.level.restart_level(self.player1, self.player2, self.bubble_service)
-                    self.levelImage = pygame.image.load(image)
-                elif keys[pygame.K_n]:
-                    image = self.level.start_next_level(self.player1, self.player2, self.bubble_service)
-                    self.levelImage = pygame.image.load(image)
 
             if self.player1.lives > 0:
                 PlayerMovement.UpdatePlayer(self.player1)
