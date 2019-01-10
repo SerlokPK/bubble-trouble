@@ -1,5 +1,5 @@
-from Projectile import *
-from bubble import *
+from projectile import *
+from bubble_service import *
 
 
 class Player(pygame.sprite.Sprite):

@@ -1,70 +1,65 @@
-import pygame
-from bubble_movement import BubbleMovement
+import math
+
+BUBBLE_SIZER = 20
+AMPLITUDE_SIZER = 2
 
 
 class Bubble:
-    def __init__(self, positionOfBall, screen, running, window_size):
-        self.positionOfBall = positionOfBall
-        self.screen = screen
-        (self.width, self.height) = window_size
-        self.running = running
+	def __init__(self, position, screen, window_size, bubble_size, amplitude, collisionTime, img):
+		self.x, self.y = position
+		self.width, self.height = window_size
+		self.bubble_size = bubble_size
+		self.screen = screen
+		self.speed = 0
+		self.angle = 0
+		self.firstTouch = True
+		self.amplitude = amplitude
+		self.img = img
+		self.collisionTime = collisionTime
 
-        self.background_colour = (255, 255, 255)  # white color
-        self.my_bubbles = []
+	def display(self, image):
+		self.screen.blit(image, (self.x, self.y))
 
-    def init_ball(self, numOfBubbles, collisionTime, bubble_size, amplitude, img):
-        number_of_bubbles = numOfBubbles
-        img = pygame.transform.scale(img, (bubble_size, bubble_size))
+	def move(self):
+		self.x += (math.sin(self.angle) * self.speed) / self.amplitude
+		self.y -= (math.cos(self.angle) * self.speed)
 
-        for n in range(number_of_bubbles):
-            if n % 2 == 0:
-                pathPointer = 1  # when bubble is split, angles are different
-            else:
-                pathPointer = -1
+	def bounce(self):
+		if self.x > self.width - self.bubble_size:
+			self.x = 2 * (self.width - self.bubble_size) - self.x
+			self.angle = - self.angle
+		elif self.x < 1:
+			if self.x < 0:
+				self.x = 2 * (-self.x)
+			else:
+				self.x = 2 * self.x
+			self.angle = - self.angle
 
-            bubble = BubbleMovement(self.positionOfBall, self.screen, (self.width, self.height), bubble_size, amplitude,
-                                    collisionTime, img)
-            bubble.speed = 15.8
-            bubble.angle = 2 * pathPointer
+		if self.firstTouch is False and self.y <= self.height / 3 :
+			self.y = 3 * (self.height / 3 - 74) - self.y
+			self.angle = math.pi - self.angle
 
-            self.my_bubbles.append(bubble)
+		if self.y > self.height - self.bubble_size:
+			self.y = 2 * (self.height - self.bubble_size) - self.y
+			self.angle = math.pi - self.angle
+			self.firstTouch = False
+		elif self.y < 1:
+			self.y = 2 * self.y
+			self.angle = math.pi - self.angle
 
-    def move_ball(self, projectile1, projectile2):
-        for (index, bubble) in enumerate(self.my_bubbles):
-            bubble.move()
-            bubble.bounce()
-            isCollision = bubble.collision(projectile1, projectile2)
-            img = bubble.img
+	def collision(self, projectile1, projectile2):
+		if self.y + self.bubble_size > projectile1.hitbox[1]:  # PLAYER 1
+			if self.x + self.bubble_size > projectile1.hitbox[0] and self.x < projectile1.hitbox[0] + projectile1.hitbox[2]:
+				self.collisionTime -= 1
+				self.bubble_size -= BUBBLE_SIZER
+				self.amplitude -= AMPLITUDE_SIZER
+				return True, 1
 
-            if isCollision[0] == True and bubble.collisionTime > 0:
-                collisionTime = bubble.collisionTime
-                bubble_size = bubble.bubble_size
-                amplitude = bubble.amplitude
-                self.positionOfBall = (bubble.x, bubble.y)
+		if self.y + self.bubble_size > projectile2.hitbox[1]:  # PLAYER 2
+			if self.x + self.bubble_size > projectile2.hitbox[0] and self.x < projectile2.hitbox[0] + projectile2.hitbox[2]:
+				self.collisionTime -= 1
+				self.bubble_size -= BUBBLE_SIZER
+				self.amplitude -= AMPLITUDE_SIZER
+				return True, 2
 
-                self.check_player_collision(isCollision[1], index, projectile1, projectile2)
-                self.init_ball(2, collisionTime, bubble_size, amplitude, img)
-                self.move_ball(projectile1, projectile2)
-            elif isCollision[0] == True and bubble.collisionTime == 0:
-                self.check_player_collision(isCollision[1], index, projectile1, projectile2)
-
-            bubble.display(img)
-
-        pygame.display.flip()
-
-    def remove_ball(self, index):
-        del self.my_bubbles[index]
-
-    def check_player_collision(self, collisionOnPlayer, index, projectile1, projectile2):
-        self.remove_ball(index)
-
-        if collisionOnPlayer == 1:
-            projectile1.alive = False
-            projectile1.xPosition = -20
-            projectile1.yPosition = 0
-            projectile1.hitbox = (projectile1.xPosition, projectile1.yPosition, 8, 480)
-        else:
-            projectile2.alive = False
-            projectile2.xPosition = -20
-            projectile2.yPosition = 0
-            projectile2.hitbox = (projectile2.xPosition, projectile2.yPosition, 8, 480)
+		return False, 1
