@@ -5,7 +5,7 @@ from projectile import *
 from level import *
 from random import Random
 from bonus import *
-from multiprocessing import Pool, Process, current_process, Lock, Queue
+from multiprocessing import Process, Queue
 import time
 
 
@@ -51,12 +51,10 @@ class Window:
         self.window.blit(pygame.image.load('Images/number' + str(self.player2.lives) + '.png'), (865, 0))
 
         if self.player1.lives > 0:
-            self.window.blit(self.player1.projectile.image,
-                             (self.player1.projectile.xPosition, self.player1.projectile.yPosition))
+            self.window.blit(self.player1.projectile.image, (self.player1.projectile.xPosition, self.player1.projectile.yPosition))
             self.window.blit(self.player1.image, (self.player1.xPosition, self.player1.yPosition))  # show player1
         if self.player2.lives > 0:
-            self.window.blit(self.player2.projectile.image,
-                             (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
+            self.window.blit(self.player2.projectile.image, (self.player2.projectile.xPosition, self.player2.projectile.yPosition))
             self.window.blit(self.player2.image, (self.player2.xPosition, self.player2.yPosition))  # show player2
 
         self.bubble_service.move_ball(self.player1.projectile, self.player2.projectile, self.queue)
@@ -76,16 +74,13 @@ class Window:
         pygame.display.update()  # show all on screen
 
     def update_hitboxes(self):
-        self.player1.hitbox = (
-            self.player1.xPosition, self.player1.yPosition, 23, 37)  # updating the hitboxes as players move
+        self.player1.hitbox = (self.player1.xPosition, self.player1.yPosition, 23, 37)  # updating the hitboxes as players move
         self.player2.hitbox = (self.player2.xPosition, self.player2.yPosition, 23, 37)
-        self.bubble_service.my_bubbles[0].hitbox = (
-            self.bubble_service.my_bubbles[0].x, self.bubble_service.my_bubbles[0].y, 80,
-            80)  # we can use for loop to update all bubbles
+        self.bubble_service.my_bubbles[0].hitbox = (self.bubble_service.my_bubbles[0].x, self.bubble_service.my_bubbles[0].y, 80, 80)  # we can use for loop to update all bubbles
         self.bonus.hitbox = (self.bonus.xPosition, self.bonus.yPosition, 23, 37)
         self.negativeBonus.hitbox = (self.negativeBonus.xPosition, self.negativeBonus.yPosition, 23, 37)
 
-    def playe_and_ball_collision(self):
+    def check_player_and_ball_collision(self):
         for player in self.players:
             for bubble in self.bubble_service.my_bubbles:
                 if bubble.y + bubble.bubble_size > player.hitbox[1]:  # 74 is ball diameter, hitbox[1] is Y coordinate for player
@@ -103,8 +98,8 @@ class Window:
                             player1_score_text = myFont.render(('Player 1 scored: %d' % player1_score), 1, black)
                             player2_score_text = myFont.render(('Player 2 scored: %d' % player2_score), 1, black)
 
-                            self.window.blit(player1_score_text, (50, 663))
-                            self.window.blit(player2_score_text, (350, 663))
+                            self.window.blit(player1_score_text, (50, 463))
+                            self.window.blit(player2_score_text, (450, 463))
                             pygame.display.update()
                             time.sleep(3)
 
@@ -112,14 +107,14 @@ class Window:
                         self.levelImage = pygame.image.load(image)
                         break
 
-    def player_and_bonus_collision(self):
+    def check_player_and_bonus_collision(self):
         for player in self.players:
             if self.bonus.xPosition + self.bonus.bonusWidth > player.hitbox[0] and self.bonus.xPosition < player.hitbox[0] + player.hitbox[2]:
                 if player.lives < 5 and self.bonus.enabled:
                     player.lives += 1
                 self.bonus.enabled = False
 
-    def player_and_negative_bonus_collision(self):
+    def check_player_and_negative_bonus_collision(self):
         for player in self.players:
             if self.negativeBonus.xPosition + self.negativeBonus.bonusWidth > player.hitbox[0] and self.negativeBonus.xPosition < player.hitbox[0] + player.hitbox[2]:
                 if self.negativeBonus.enabled:
@@ -128,6 +123,8 @@ class Window:
                 self.negativeBonus.enabled = False
 
     def run_game(self):
+        p1 = Process(target=points.increase_points, args=[self.queue, self.returnQueue])
+        p1.start()
         img = pygame.image.load('Images/transparentBall.png')
         self.bubble_service.init_ball(1, 4, 74, 10, img)  # at start we have 1 ball and collision is 0, bubble size and amplitude
         self.players.append(self.player1)
@@ -136,14 +133,11 @@ class Window:
         negativeBonusTimer = 0
         slowReset = 0
 
-        p1 = Process(target=points.increase_points, args=[self.queue, self.returnQueue])
-        p1.start()
-
         while self.running:
             self.clock.tick(40)
-            self.playe_and_ball_collision()
-            self.player_and_bonus_collision()
-            self.player_and_negative_bonus_collision()
+            self.check_player_and_ball_collision()
+            self.check_player_and_bonus_collision()
+            self.check_player_and_negative_bonus_collision()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -155,17 +149,17 @@ class Window:
                 elif keys[pygame.K_KP_ENTER]:
                     self.player2.fire()
                 elif keys[pygame.K_ESCAPE]:
-                    self.queue.put('quit')
                     self.running = False
+                    self.queue.put('quit')
                     break
 
             if self.player1.lives > 0:
-                PlayerMovement.UpdatePlayer(self.player1)
-                Projectile.UpdateProjectile(self.player1.projectile)
+                PlayerMovement.update_player_position(self.player1)
+                Projectile.update_projectile(self.player1.projectile)
 
             if self.player2.lives > 0:
-                PlayerMovement.UpdatePlayer(self.player2)
-                Projectile.UpdateProjectile(self.player2.projectile)
+                PlayerMovement.update_player_position(self.player2)
+                Projectile.update_projectile(self.player2.projectile)
 
             rand = Random()
             if rand.randint(0, 1000) <= 1 and self.bonus.enabled is False:

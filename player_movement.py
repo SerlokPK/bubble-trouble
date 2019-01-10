@@ -2,11 +2,8 @@ import pygame
 
 
 class PlayerMovement:
-    def __init__(self):
-        pass
-
     @staticmethod
-    def UpdatePlayer(player):
+    def update_player_position(player):
         keys = pygame.key.get_pressed()
         if keys[player.left_key] and player.xPosition > player.velocity:
             player.xPosition -= player.velocity
