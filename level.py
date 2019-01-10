@@ -18,10 +18,14 @@ class Level:
     def set_positions(self, player1, player2, bubble):
         bubble.my_bubbles = []
         player1.projectile.alive = False
+        player1.projectile.hitbox = (0, 0, 0, 0)
         player1.projectile.xPosition = -20
+        player1.projectile.yPosition = -20
         player1.velocity = 10
         player2.projectile.alive = False
+        player2.projectile.hitbox = (0, 0, 0, 0)
         player2.projectile.xPosition = -20
+        player2.projectile.yPosition = -20
         player2.velocity = 10
 
         if player1.lives == 0 and player2.lives == 0:
