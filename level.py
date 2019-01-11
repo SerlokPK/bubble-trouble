@@ -15,6 +15,7 @@ class Level:
         self.currentLevel += 1
         return self.set_positions(player1, player2, bubble)
 
+    # set positions of every object in window
     def set_positions(self, player1, player2, bubble):
         bubble.my_bubbles = []
         player1.projectile.alive = False

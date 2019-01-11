@@ -77,8 +77,8 @@ class Window:
         self.player1.hitbox = (self.player1.xPosition, self.player1.yPosition, 23, 37)  # updating the hitboxes as players move
         self.player2.hitbox = (self.player2.xPosition, self.player2.yPosition, 23, 37)
         self.bubble_service.my_bubbles[0].hitbox = (self.bubble_service.my_bubbles[0].x, self.bubble_service.my_bubbles[0].y, 80, 80)  # we can use for loop to update all bubbles
-        self.bonus.hitbox = (self.bonus.xPosition, self.bonus.yPosition, 23, 37)
-        self.negativeBonus.hitbox = (self.negativeBonus.xPosition, self.negativeBonus.yPosition, 23, 37)
+        self.bonus.hitbox = (self.bonus.xPosition, self.bonus.yPosition, 35, 35)
+        self.negativeBonus.hitbox = (self.negativeBonus.xPosition, self.negativeBonus.yPosition, 35, 35)
 
     def check_player_and_ball_collision(self):
         for player in self.players:
@@ -126,7 +126,7 @@ class Window:
         p1 = Process(target=points.increase_points, args=[self.queue, self.returnQueue])
         p1.start()
         img = pygame.image.load('Images/transparentBall.png')
-        self.bubble_service.init_ball(1, 4, 74, 10, img)  # at start we have 1 ball and collision is 0, bubble size and amplitude
+        self.bubble_service.init_ball(1, 4, 74, 10, img)  # at start we have 1 ball and collision is 4, bubble size and amplitude
         self.players.append(self.player1)
         self.players.append(self.player2)
         bonusTimer = 0
@@ -146,7 +146,7 @@ class Window:
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_SPACE]:
                     self.player1.fire()
-                elif keys[pygame.K_KP_ENTER]:
+                elif keys[pygame.K_UP]:
                     self.player2.fire()
                 elif keys[pygame.K_ESCAPE]:
                     self.running = False

@@ -47,6 +47,7 @@ class Bubble:
 			self.y = 2 * self.y
 			self.angle = math.pi - self.angle
 
+	# check if projectile hit the ball
 	def collision(self, projectile1, projectile2):
 		if self.y + self.bubble_size > projectile1.hitbox[1]:  # PLAYER 1
 			if self.x + self.bubble_size > projectile1.hitbox[0] and self.x < projectile1.hitbox[0] + projectile1.hitbox[2]:

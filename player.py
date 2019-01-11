@@ -9,8 +9,6 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load(image)
         self.playerWidth = 23
         self.playerHeight = 37
-        self.walkingLeft = False
-        self.walkingRight = False
         self.velocity = 10
         self.left_key = left_key
         self.right_key = right_key

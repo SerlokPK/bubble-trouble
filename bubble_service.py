@@ -55,6 +55,7 @@ class BubbleService:
     def remove_ball(self, index):
         del self.my_bubbles[index]
 
+    # check which player hit the ball
     def bubble_and_projectile_collision(self, collisionOnPlayer, index, projectile1, projectile2, queue):
         self.remove_ball(index)
 

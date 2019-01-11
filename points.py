@@ -1,5 +1,5 @@
 from multiprocessing.pool import ThreadPool
-pool = ThreadPool(processes=2)
+pool = ThreadPool(processes=1)
 
 
 def increase_points(queue, returnQueue):
